@@ -22,15 +22,13 @@ library(lubridate)
 library(rgdal)
 library(sf)
 
+# Read functions from these files.
 source("gps_convert.R")
 source("utils.r")
-# Make colors accessible c(gray, orange, green)
-#plotcol <- c("#bcbcbc", 
-#             "#f8bc05", 
-#             "#1ace00") 
-plotcol <- c("gray", 
-             "orange", 
-             "green") 
+
+plotcol <- c("gray", "orange", "green")
+
+# Change according to the counties where inventory is done.
 lan <- c("Dalarnas län (S)",
          "Gävleborgs län (S)",
          "Värmlands län (S)",
@@ -38,9 +36,12 @@ lan <- c("Dalarnas län (S)",
          "Uppsala län (S)",
          "Örebro län (S)",
          "Västmanlands län (S)")
-
+# Reads all excel files containing extracted samples
 DNA <- ExcelToDF(dir = "Data", pattern = "*_SEP.xlsx")
 colnames(DNA) <- c("Position", "RackID", "TubeID", "Streckkod")
+
+# Reads samples registered in rovbase eg this file should be fetched
+# from rovbase daily.
 bear <- read_excel("Data/rovbasedata.xlsx")
 colnames(bear) <- c("Streckkod", "Art", "Provtyp", "Lat", "Long", "Datum", "Kommunnummer", "Kommun", "Lansnummer", "Lan")
 bear <- bear[bear$Lan %in% lan,]
@@ -50,6 +51,7 @@ bearmap$RackID[is.na(bearmap$RackID)] <- 0
 bearmap$RackID[bearmap$RackID>1] <- 1
 bearmap$Genotyp <- 0
 
+# Reads all excel files containing analysed samples
 gt <- ExcelToDF(dir = "Data/Analysed/", pattern = "*_SEP.xlsx")
 gtu <- unique(gt$SEP)
 bearmap$Genotyp <- bearmap$Streckkod%in%gtu
@@ -108,14 +110,27 @@ leaflet(bearmap) %>%
       addTiles(group = "OSM") %>%
       addProviderTiles(providers$OpenStreetMap,
                        options = providerTileOptions(noWrap = TRUE)) %>%
-  addAwesomeMarkers(icon=icons, label=~as.character(Streckkod), group = "marker", clusterOptions = markerClusterOptions(), options = ) %>%
-  addLegend( pal=pal, values = ~levels(code), opacity=0.8, title = "Provstatus", position = "bottomleft") %>%
-  addSearchFeatures('marker', options = searchFeaturesOptions(zoom = 15,
+    addAwesomeMarkers(icon=icons,
+                      label=~as.character(Streckkod),
+                      group = "marker",
+                      clusterOptions = markerClusterOptions(), options = ) %>%
+    addLegend(pal=pal,
+              values = ~levels(code),
+              opacity=0.8,
+              title = "Provstatus",
+              position = "bottomleft") %>%
+    addSearchFeatures('marker',
+                      options = searchFeaturesOptions(zoom = 15,
                                     openPopup = TRUE,
                                     firstTipSubmit = TRUE,
                                     autoCollapse = TRUE,
                                     hideMarkerOnCollapse = FALSE)) %>%
     hideGroup("marker")
+# Remove the hideGroup command
+# when there is actual samples
+# to plot. This is just to
+# show an empty map of the
+# region prior to samples arriving.
 
 ```
 
@@ -134,6 +149,8 @@ ggplot(as.data.frame(bearmap)) + aes(x = Datum) + geom_bar(alpha=0) + scale_y_co
 ### inkomna prover fram till `r Sys.Date()`
 
 ```{r}
+# comment the row below and uncomment the next row when actual samples
+# are available.
 Bearsamples <- 0
 # Bearsamples <- length(bearmap$code)
 valueBox(Bearsamples,
@@ -144,6 +161,8 @@ valueBox(Bearsamples,
 ### DNA extraherat fram till `r Sys.Date()`
 
 ```{r}
+# comment the row below and uncomment the next row when actual samples
+# are available.
 dnaextract <- 0
 #dnaextract <- sum(bearmap$code == "2. DNA extraherat" | bearmap$code == "3. Prov analyserat")
 valueBox(dnaextract,
@@ -155,6 +174,8 @@ valueBox(dnaextract,
 ### Färdiganalyserade prover `r Sys.Date()`
 
 ```{r}
+# comment the row below and uncomment the next row when actual samples
+# are available.
 genotyped <- 0
 #genotyped <- sum(bearmap$code == "3. Prov analyserat")
 valueBox(genotyped,
