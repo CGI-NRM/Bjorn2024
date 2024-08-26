@@ -35,7 +35,8 @@ lan <- c("Dalarnas län (S)",
          "Stockholms län (S)",
          "Uppsala län (S)",
          "Örebro län (S)",
-         "Västmanlands län (S)")
+         "Västmanlands län (S)",
+         "Västerbottens län (S)")
 # Reads all excel files containing extracted samples
 DNA <- ExcelToDF(dir = "Data", pattern = "*_SEP.xlsx")
 colnames(DNA) <- c("Position", "RackID", "TubeID", "Streckkod")
@@ -124,8 +125,8 @@ leaflet(bearmap) %>%
                                     openPopup = TRUE,
                                     firstTipSubmit = TRUE,
                                     autoCollapse = TRUE,
-                                    hideMarkerOnCollapse = FALSE)) %>%
-    hideGroup("marker")
+                                    hideMarkerOnCollapse = FALSE)) #%>%
+#    hideGroup("marker")
 # Remove the hideGroup command
 # when there is actual samples
 # to plot. This is just to
@@ -151,8 +152,8 @@ ggplot(as.data.frame(bearmap)) + aes(x = Datum) + geom_bar(alpha=0) + scale_y_co
 ```{r}
 # comment the row below and uncomment the next row when actual samples
 # are available.
-Bearsamples <- 0
-# Bearsamples <- length(bearmap$code)
+# Bearsamples <- 0
+Bearsamples <- length(bearmap$code)
 valueBox(Bearsamples,
 	 icon = "fa-clipboard-check",
 	 color = plotcol[1])
