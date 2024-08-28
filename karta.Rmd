@@ -142,7 +142,7 @@ Column {data-width=350}
 
 ```{r}
 
-ggplot(as.data.frame(bearmap)) + aes(x = Datum) + geom_bar(alpha=0) + scale_y_continuous(name = "Insamlade prover per dag") #+
+ggplot(as.data.frame(bearmap)) + aes(x = Datum) + geom_bar(alpha=0.9) + scale_y_continuous(name = "Insamlade prover per dag") #+
  # geom_blank()
 
 ```
