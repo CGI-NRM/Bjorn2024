@@ -3,7 +3,7 @@ title: "Björninventering Västerbottens län, 21 augusti-31 oktober 2024"
 output: 
   flexdashboard::flex_dashboard:
     theme: readable
-    logo: naturhistoriska-riksmuseet.png
+    logo: naturhistoriska-riksmuseet2.png
     orientation: columns
     vertical_layout: fill
 ---
