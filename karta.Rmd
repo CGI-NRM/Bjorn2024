@@ -164,8 +164,8 @@ valueBox(Bearsamples,
 ```{r}
 # comment the row below and uncomment the next row when actual samples
 # are available.
-dnaextract <- 0
-#dnaextract <- sum(bearmap$code == "2. DNA extraherat" | bearmap$code == "3. Prov analyserat")
+#dnaextract <- 0
+dnaextract <- sum(bearmap$code == "2. DNA extraherat" | bearmap$code == "3. Prov analyserat")
 valueBox(dnaextract,
 	 icon = "fa-dna",
 	 color = plotcol[2])
