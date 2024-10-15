@@ -44,7 +44,7 @@ colnames(DNA) <- c("Position", "TubeID", "RackID", "Streckkod")
 # Reads samples registered in rovbase eg this file should be fetched
 # from rovbase daily.
 bear <- read_excel("Data/rovbasedata.xlsx")
-colnames(bear) <- c("Streckkod", "Art", "Provtyp", "Lat", "Long", "Datum", "Kommunnummer", "Kommun", "Lansnummer", "Lan")
+colnames(bear) <- c("Streckkod", "Art", "Provtyp", "Lat", "Long", "Datum", "Analysprioritet", "Kommunnummer", "Kommun", "Lansnummer", "Lan")
 bear <- bear[bear$Lan %in% lan,]
 DNA <- DNA[!duplicated(DNA$Streckkod),]
 bearmap <- base::merge(bear, DNA, by = "Streckkod", all.x = TRUE)
