@@ -50,7 +50,7 @@ bear <- read_excel("Data/rovbasedata.xlsx")
 colnames(bear) <- c("Streckkod", "Art", "Provtyp", "Lat", "Long", "Datum", "Analysprioritet", "Kommunnummer", "Kommun", "Lansnummer", "Lan")
 bear <- bear[bear$Lan %in% lan,]
 DNA <- DNA[!duplicated(DNA$Streckkod),]
-bearmap <- base::merge(bear, DNA, by = "Streckkod", all.x = TRUE, all.y = TRUE)
+bearmap <- base::merge(bear, DNA, by = "Streckkod", all.x = TRUE)
 bearmap$RackID[is.na(bearmap$RackID)] <- 0
 bearmap$RackID[bearmap$RackID>1] <- 1
 bearmap$Genotyp <- 0
