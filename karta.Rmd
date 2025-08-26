@@ -19,7 +19,7 @@ library(wesanderson)
 library(RColorBrewer)
 library(leaflet.extras)
 library(lubridate)
-library(rgdal)
+# library(rgdal)
 library(sf)
 
 # Read functions from these files.

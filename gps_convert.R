@@ -1,5 +1,5 @@
 library(readxl)
-library(rgdal)
+# library(rgdal)
 library(sf)
 
 gps_convert <- function(data, latitude = "lat", longitude = "long") {
